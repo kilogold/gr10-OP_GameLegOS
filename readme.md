@@ -1,22 +1,3 @@
-# Badger Rescue Faucet
-This is a gamified faucet designed for qualifying members of the badger community that have found themselves stranded on Binance Smart Chain without any BNB to operate with. This happens when users use bridges (like Binance Bridge), but forego/forget acquiring BNB gas funds. Trying to get enough BNB at this point, just to finalize one or two more transactions, can be costly and stressful. So why not try to relax a bit and play a little game? You may earn BNB rewards for a good score, and you can finalize your Binance Smart Chain adventure, without it costing you extra.
-
-### BSC Testnet Demo
-![Demo](https://user-images.githubusercontent.com/1028926/112793193-b0d0fb00-9019-11eb-9a89-34286952cbaf.gif)
-
-**Playable**: http://kraniumtivity.com/Extra/RescueFaucet
-
-**Full Gameplay**: https://youtu.be/VAFihQhIPsw
-
-**Faucet Contract**: [0x3057ae5dda530e2887fe50b30382A13f2aE72FEe](https://testnet.bscscan.com/address/0x3057ae5dda530e2887fe50b30382A13f2aE72FEe) ([source](Brownie/contracts/Faucet.sol))
-
-## Summary
-The Badger Rescue Faucet (BRF) is a mini-game that grants BNB to players who are whitelisted for use. Players must try catching coins falling from the clouds before time runs out, all while running across the edge of a cliff without falling off. Successful badgers will claim token amounts based on their performance. Unfortunate badgers will forfeit any collected coins. The coins represent a configurable amount of BNB granted to the players wallet upon winning.
-
-| Win | Lose |
-|--|--|
-| ![Win](https://user-images.githubusercontent.com/1028926/112774940-1e683180-8ff0-11eb-9f0d-8acbbe4a86bd.png) | ![Lose](https://user-images.githubusercontent.com/1028926/112774974-3fc91d80-8ff0-11eb-819d-ff8874ad2de7.png) |
-
 ## Technical Overview
 ### Whitelisting/Validation
 To qualify for faucet use, badgers must own at least `10 Wei` of bBadger on both [Ethereum](https://ropsten.etherscan.io/address/0xBD2231994722D8a47244C4166Bc6Ac4bF8Bbc110) & [Binance Smart Chain](https://testnet.bscscan.com/address/0x926A513fdd63e1010e6C0627EB12204ADA45d550) testnets. 
@@ -63,6 +44,3 @@ After playing a session (win or lose), the player can bypass the retry delay per
 There may be multiple players interacting with the faucet simultaneously. Because we only check for balance before starting a game, the faucet may become depleted by another player's payout before your game ends. When requesting your payout, the transaction will fail because there is not enough balance remaining. Similar to above, the solution here is to either:
 - Query the mempool for pending payouts and pre-calculate the maximum collective payout to determine if there is enough for a 100% payout game session.
 - Centralize the deployment by saving some of the game session data on a persistent backend, possibly even the website's own database.
-
-# Accepting pull requests!
-![logo badgers never hide](https://user-images.githubusercontent.com/1028926/112795519-7cf7d480-901d-11eb-9ed4-0c7fe2605bb7.jpg)
