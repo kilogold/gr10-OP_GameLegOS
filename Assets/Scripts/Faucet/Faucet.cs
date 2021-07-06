@@ -38,7 +38,7 @@ public class Faucet : MonoBehaviour
 
     public UnityEvent<BigInteger> OnGetElapsedRate;
     public UnityEvent<BigInteger> OnGetElapsedTime;
-    public UnityEvent<string> OnRequestGrant;
+    public UnityEvent<string> OnGrantRequested;
 
     public void RequestZeroGrant()
     {
@@ -49,6 +49,9 @@ public class Faucet : MonoBehaviour
     
     public void RequestGrant()
     {
+        if (grantRequestTotalScore == 0)
+            throw new NotSupportedException("Total maximum score must be greater than 0.");
+
         StartCoroutine(RequestGrantCR(grantRequestCurrentScore, grantRequestTotalScore));
     }
 
@@ -120,7 +123,7 @@ public class Faucet : MonoBehaviour
         string transactionHash = transactionTransferRequest.Result;
         Debug.Log(transactionHash);
 
-        OnRequestGrant?.Invoke(transactionHash);
+        OnGrantRequested?.Invoke(transactionHash);
         grantTransactionHash = transactionHash;
     }
 }

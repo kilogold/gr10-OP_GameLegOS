@@ -17,7 +17,7 @@ public class WalletValidationCoordinator : MonoBehaviour
 
     private Coroutine validationCR = null;
     
-    private void Start()
+    private void Awake()
     {
         isValidatingCoroutine = false;
         onChainValidation.validationComplete += OnValidationCoroutineComplete;
@@ -38,7 +38,8 @@ public class WalletValidationCoordinator : MonoBehaviour
         if(offChainOutcome != ValidationOutcome.Code.Success)
         {
             // TODO: Check that input address is not a Contract address. May require callback pattern refactor.
-            InvalidStart?.Invoke(new ValidationOutcome(offChainOutcome, null));
+            InvalidStart?.Invoke(new ValidationOutcome(offChainOutcome, null));   
+            return;
         }
 
         validationCR = StartCoroutine(onChainValidation.ValidateCR(walletAddressInputField.text));
