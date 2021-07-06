@@ -1,3 +1,6 @@
+# Game Faucet
+This is an entry for OP Game's Gitcoin Round 10 bounty. 
+
 ## Technical Overview
 ### Whitelisting/Validation
 To qualify for faucet use, badgers must own at least `10 Wei` of bBadger on both [Ethereum](https://ropsten.etherscan.io/address/0xBD2231994722D8a47244C4166Bc6Ac4bF8Bbc110) & [Binance Smart Chain](https://testnet.bscscan.com/address/0x926A513fdd63e1010e6C0627EB12204ADA45d550) testnets. 
@@ -44,3 +47,9 @@ After playing a session (win or lose), the player can bypass the retry delay per
 There may be multiple players interacting with the faucet simultaneously. Because we only check for balance before starting a game, the faucet may become depleted by another player's payout before your game ends. When requesting your payout, the transaction will fail because there is not enough balance remaining. Similar to above, the solution here is to either:
 - Query the mempool for pending payouts and pre-calculate the maximum collective payout to determine if there is enough for a 100% payout game session.
 - Centralize the deployment by saving some of the game session data on a persistent backend, possibly even the website's own database.
+
+## Examples
+The project includes an example scene [Assets/Faucet/Demo.unity] where you can preview basic functionality.
+![image](https://user-images.githubusercontent.com/1028926/124543755-b2f5e300-ddda-11eb-82c6-c0bfa527cb5f.png)
+
+For a full-integration demonstration, see the [Coin Catch](https://github.com/kilogold/gr10-OP_Arcade) game repository.
