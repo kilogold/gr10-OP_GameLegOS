@@ -1,5 +1,5 @@
 # Game Faucet
-This is an entry for OP Game's Gitcoin Round 10 bounty. 
+This is an entry for OP Game's [Gitcoin Round 10 bounty](https://gitcoin.co/issue/alto-io/gr-10/1/100025933). 
 
 ## Requirements
 -  Unity 2020.1+
