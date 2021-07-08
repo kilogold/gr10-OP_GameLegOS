@@ -1,25 +1,22 @@
 # Game Faucet
 This is an entry for OP Game's Gitcoin Round 10 bounty. 
 
-## Technical Overview
-
-### Requirements
+## Requirements
 -  Unity 2020.1+
 -  [Eth Brownie](https://github.com/eth-brownie/brownie)
 
+## Technical Overview
+
 ### Whitelisting/Validation
-To qualify for faucet use, badgers must own at least `10 Wei` of bBadger on both [Ethereum](https://ropsten.etherscan.io/address/0xBD2231994722D8a47244C4166Bc6Ac4bF8Bbc110) & [Binance Smart Chain](https://testnet.bscscan.com/address/0x926A513fdd63e1010e6C0627EB12204ADA45d550) testnets. 
-You can run the [minting brownie script](Brownie/scripts/deployment_test_mint.py) to grant yourself enough tokens.  
-You can view the validators [here](https://ropsten.etherscan.io/address/0x78F459703e3682F79F7e4504874Ea8850226764d) & [here](https://testnet.bscscan.com/address/0x08157968B5eE8B421C9cBE241906b6b9D831DBEC)
+To qualify for faucet use, users can be required to own a certain amount of tokens on either [Ethereum](https://ropsten.etherscan.io/address/0xBD2231994722D8a47244C4166Bc6Ac4bF8Bbc110) and/or [Binance Smart Chain](https://testnet.bscscan.com/address/0x926A513fdd63e1010e6C0627EB12204ADA45d550) network (among other EVM chains). During development, you can run the [minting brownie script](Brownie/scripts/deployment_test_mint.py) to grant yourself enough tokens.  
+You can view example validators [here](https://ropsten.etherscan.io/address/0x78F459703e3682F79F7e4504874Ea8850226764d) & [here](https://testnet.bscscan.com/address/0x08157968B5eE8B421C9cBE241906b6b9D831DBEC)
 
 ### Deployment Layout
 ![Alt text here](Documentation/Diagrams.svg)  
-The way to run validation/gate-keeping is via the game application itself, since it is network agnostic. The validation happens on-chain with [TokenHolderThresholdValidator](Brownie/contracts/BadgerValidation.sol) contracts. BSC contracts can't directly call Ethereum contracts, so we have the game independently call each network's contracts. It expects both validators to succeed before letting you actually play the game. These validators simply check if you have enough of a particular token to qualify for the faucet (aka, you meet the threshold of tokens held).
-At first, the game will prevent you from playing, because you need the qualifying token, which in this case is the [BrownieWrap_Token](Brownie/contracts/BrownieEnvWrappers.sol) (representative of bBadger). In the future, these validators can incorporate [BadgerTree](https://badger-finance.gitbook.io/badger-finance/badger-tree/tree-summary).
-
+The way to run validation/gate-keeping is via the game application itself, since it is network agnostic. The validation happens on-chain with [TokenHolderThresholdValidator](Brownie/contracts/BadgerValidation.sol) contracts. BSC contracts can't directly call Ethereum contracts, so we have the game independently call each network's validator contracts. All validators are required to succeed before granting rewards. These validators simply check if you have enough of a particular token to qualify for the faucet (aka, you meet the threshold of tokens held). You can deply a faucet without validators; this feature is entirely optional.
 
 ### Token Grant Calculation
-You can specify the maximum payout amount when creating the smart contract instance on the blockchain. In the current BLF template, the game design has a variable score and total where `score <= total`. The difference between score and total form the ratio that is factored into the max payout:
+You can specify the maximum payout amount when creating the smart contract instance on the blockchain. In this current template, the game design has a variable score and total where `score <= total`. The difference between score and total form the ratio that is factored into the max payout:
 ```
 FinalPayout = (Score/Total) * MaxPayout
 ```
