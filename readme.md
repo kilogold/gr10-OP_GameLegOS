@@ -13,7 +13,7 @@ You can view example validators [here](https://ropsten.etherscan.io/address/0x78
 
 ### Deployment Layout
 ![Alt text here](Documentation/Diagrams.svg)  
-The way to run validation/gate-keeping is via the game application itself, since it is network agnostic. The validation happens on-chain with [TokenHolderThresholdValidator](Brownie/contracts/BadgerValidation.sol) contracts. BSC contracts can't directly call Ethereum contracts, so we have the game independently call each network's validator contracts. All validators are required to succeed before granting rewards. These validators simply check if you have enough of a particular token to qualify for the faucet (aka, you meet the threshold of tokens held). You can deply a faucet without validators; this feature is entirely optional.
+The way to run validation/gate-keeping is via the game application itself, since it is network agnostic. The validation happens on-chain with [TokenHolderThresholdValidator](Brownie/contracts/BadgerValidation.sol) contracts. BSC contracts can't directly call Ethereum contracts, so we have the game independently call each network's validator contracts. All validators are required to succeed before granting rewards. These validators simply check if you have enough of a particular token to qualify for the faucet (aka, you meet the threshold of tokens held). You can deploy a faucet without validators; this feature is entirely optional.
 
 ### Token Grant Calculation
 You can specify the maximum payout amount when creating the smart contract instance on the blockchain. In this current template, the game design has a variable score and total where `score <= total`. The difference between score and total form the ratio that is factored into the max payout:
