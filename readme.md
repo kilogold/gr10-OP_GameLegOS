@@ -2,6 +2,11 @@
 This is an entry for OP Game's Gitcoin Round 10 bounty. 
 
 ## Technical Overview
+
+### Requirements
+-  Unity 2020.1+
+-  [Eth Brownie](https://github.com/eth-brownie/brownie)
+
 ### Whitelisting/Validation
 To qualify for faucet use, badgers must own at least `10 Wei` of bBadger on both [Ethereum](https://ropsten.etherscan.io/address/0xBD2231994722D8a47244C4166Bc6Ac4bF8Bbc110) & [Binance Smart Chain](https://testnet.bscscan.com/address/0x926A513fdd63e1010e6C0627EB12204ADA45d550) testnets. 
 You can run the [minting brownie script](Brownie/scripts/deployment_test_mint.py) to grant yourself enough tokens.  
@@ -25,18 +30,18 @@ FinalPayout = (Score/Total) * MaxPayout
 Once the smart contract has been manually deployed, the game must be built with the updated smart contract info:
 
  1. Mainnet/Testnet infura API address.
- 2. Faucet smart contract address.
- 3. Designated gas wallet address to cover expenses.
- 4. Designated gas wallet private key to sign faucet grant transactions.
+ 2. Block explorer base address.
+ 3. Faucet smart contract address.
+ 4. Designated gas wallet address to cover expenses.
+ 5. Designated gas wallet private key to sign faucet grant transactions.
  > Needless to say, don't save the production private key into the project. You should only enter it manually prior to building the WebGL project.
 
-![](https://user-images.githubusercontent.com/1028926/112789719-934c6300-9012-11eb-95f3-21e9aa4825f9.png)
-
+![image](https://user-images.githubusercontent.com/1028926/124875578-eae95b80-df7d-11eb-9712-5f5c1adb1414.png)
 
 ## Limitations / Pending Improvements
 
 ### Game only runs on Chrome
-I'm not exactly a web dev so I had to rely on miscelaneous tutorials to get the WebGL properly bootstrapped with Web3 plugins such as Metamask. Brave Browser doesn't work, for example. The Metamask button on the start screen has only worked when running on Chrome with Metamask being the sole Web3 provider installed. More details on this issue to come. 
+I'm not exactly a web dev so I had to rely on miscelaneous tutorials to get the WebGL properly bootstrapped with Web3 plugins such as Metamask. Brave Browser doesn't work, for example. The Metamask button on the start screen has only worked when running on Chrome with Metamask being the sole Web3 provider installed. This is likely the culprit: https://medium.com/valist/how-to-connect-web3-js-to-metamask-in-2020-fee2b2edf58a 
 
 ### Instant Replay Vulnerability
 After playing a session (win or lose), the player can bypass the retry delay period simply by reloading the page immediately. A user could do this consecutively to illegitimately boost their rewards, potentially draining the faucet. This happens because time tracking for each player is done via block timestamps in Solidity. The delay period for any player is only updated on the next block. The solution here is to either:
